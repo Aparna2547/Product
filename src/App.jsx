@@ -11,14 +11,15 @@ import SinglePage  from "./Pages/SinglePage";
 
 function App() {
 
+  const token = localStorage.getItem('token')
   return (
     <>
            <Toaster position="top-center" richColors/>
 
            <Router>
             <Routes>
-              <Route path='/signup' element={<Signup/>}/>
-              <Route path='/login' element={<Login/>}/>
+              <Route path='/signup' element={token ? <Navigate to ='/' /> :<Signup/>}/>
+              <Route path='/login' element={token ? <Navigate to='/' />: <Login/>}/>
               <Route path='/' element={<Home/>}/>
               <Route path='/singleview/:id' element={<SinglePage/>}/>
             </Routes>

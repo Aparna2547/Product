@@ -6,6 +6,7 @@ import { IoHeartOutline } from "react-icons/io5";
 import WishlistSidebar from '../Components/WishlistSidebar';
 import { useParams } from 'react-router';
 import { singleView ,addToWishlist} from '../apis/user';
+import { toast } from 'sonner';
 
 
 const SinglePage = () => {
@@ -24,9 +25,14 @@ const SinglePage = () => {
     fetchProduct()
   },[])
 
-  const addToWishlist =async (id)=>{
+  const addToWishlisthandle =async (id)=>{
+    const token = localStorage.getItem('token')
+    if(!token){
+      return toast.error('Please login')
+    }
     const res = await addToWishlist(id)
     console.log(res)
+    toast.success(res.data.message)
   }
   return (
     <>
@@ -96,7 +102,7 @@ const SinglePage = () => {
                 <div className='py-3 px-6 md:text-2xl bg-[#EDA415] text-white font-semibold rounded-3xl cursor-pointer'>
                   <p>Buy it now</p>
                 </div>
-                <div className='p-4 rounded-full bg-[#EEEEEE] cursor-pointer' onClick={()=>addToWishlist(product._id)}>
+                <div className='p-4 rounded-full bg-[#EEEEEE] cursor-pointer' onClick={()=>addToWishlisthandle(product._id)}>
                   <IoHeartOutline className='text-2xl' />
                 </div>
               </div>

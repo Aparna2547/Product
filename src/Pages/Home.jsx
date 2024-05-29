@@ -25,7 +25,7 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-
+ const token  = localStorage.getItem('token')
   useEffect(() => {
     const fetchProduct = async () => {
       const res = await showProducts(categoryArray, search, currentPage);
@@ -46,13 +46,28 @@ const Home = () => {
   }, []);
 
   const handleCategoryModal = () => {
+    if(!token){
+      return toast.error("Please login")
+    }
     setCategoryModal(!categoryModal);
+    // setCategoryModal(true)
   };
 
   const handleSubCategoryModal = () => {
+    if(!token){
+      return toast.error("Please login")
+    }
     setSubCategoryModal(!subCategoryModal);
+   
   };
 
+  const handleProductModal = () =>{
+    if(!token){
+
+      return toast.error("Please login")
+    }
+    setProductModal(!productModal)
+  }
 
   const wishlist = async(id) =>{
     const res = await addToWishlist(id)
@@ -61,6 +76,8 @@ const Home = () => {
     }
 
   }
+
+  
 
   return (
     <>
@@ -79,7 +96,7 @@ const Home = () => {
             <div className="flex gap-4 font-bold">
               <button
                 className="bg-[#EDA415] text-white px-4 py-3 rounded-2xl"
-                onClick={() => setCategoryModal(true)}
+                onClick={() => handleCategoryModal()}
               >
                 Add category
               </button>
@@ -91,7 +108,7 @@ const Home = () => {
               </button>
               <button
                 className="bg-[#EDA415] text-white px-4 py-3 rounded-2xl"
-                onClick={() => setProductModal(!productModal)}
+                onClick={() => handleProductModal()}
               >
                 Add product
               </button>

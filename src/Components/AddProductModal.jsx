@@ -30,8 +30,26 @@ const AddProductModal = ({ setProductModal }) => {
 
   const handleSubmit = async (e) =>{
     e.preventDefault()
+
+    if(name.trim().length<2){
+      toast.error('Enter product name')
+      return
+    }else if(variants[0].Ram == '' ||variants[0].Price=='' || variants[0].Qty=='' ){
+      toast.error("Enter atleast one variant")
+      return
+    }else if(selectedSubCategory === ''){
+      toast.error("select category")
+      return
+    }else if(description.length<5){
+      toast.error("Enter description")
+      return
+    }else if(images[0]==''){
+      toast.error("select atleast one image")
+      return
+    }
     const res = await addProduct(
       {productName:name, variants, subCategory:selectedSubCategory, description ,images} )
+
     console.log(res)
     if(res.data){
       toast.success(res.data.message)
