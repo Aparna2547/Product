@@ -1,5 +1,7 @@
 import axios from "axios"
-const baseUrl = 'http://localhost:3000'
+// const baseUrl = 'http://localhost:3000'
+const baseUrl = 'https://productserver-0hye.onrender.com'
+
 
 const token = localStorage.getItem('token') || null
 
