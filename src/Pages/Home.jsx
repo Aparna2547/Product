@@ -34,7 +34,7 @@ const Home = () => {
       setTotalPages(res.data.totalPages);
     };
     fetchProduct();
-  }, [categoryArray, search, currentPage]);
+  }, [categoryArray, search, currentPage,productModal,categoryModal,subCategoryModal]);
 
   useEffect(() => {
     const fetchData = async () => {
